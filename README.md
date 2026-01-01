@@ -1,126 +1,98 @@
 # vmux examples
 
-Example scripts for [vmux](https://vmux.sdan.io) - run any command in the cloud.
+Run any command in the cloud. These examples show what's possible with [vmux](https://vmux.sdan.io).
 
-## Quick Start
+## Setup
 
 ```bash
-# Install vmux
 uv tool install vmux-cli
-
-# Login with GitHub
 vmux login
-
-# Run an example
-vmux run python hello.py
 ```
 
 ## Examples
 
-### Basic Scripts
-
-| Example | Description | Command |
-|---------|-------------|---------|
-| `hello.py` | Simple test script | `vmux run python hello.py` |
-| `ticker.py` | 2-min counter | `vmux run python ticker.py` |
-| `epoch_counter.py` | 2-hour epoch timer | `vmux run -d python epoch_counter.py` |
-| `holiday.py` | Festive tree animation | `vmux run python holiday.py` |
-
-### Network & Monitoring
-
-| Example | Description | Command |
-|---------|-------------|---------|
-| `netprobe.py` | Network analytics (latency, jitter, speed) | `vmux run python netprobe.py` |
-
-### ML Training (requires Tinker API)
-
-| Example | Description | Command |
-|---------|-------------|---------|
-| `train_arithmetic.py` | RL: teach LLM to add | `vmux run -e TINKER_API_KEY=xxx python train_arithmetic.py` |
-| `train_llama.py` | SL: fine-tune Llama-3.1-8B | `vmux run -d python train_llama.py` |
-
-### Web Servers (with preview URLs)
-
-| Example | Description | Command |
-|---------|-------------|---------|
-| `burrow.py` | Real-time data dashboard | `vmux run -p 8000 python burrow.py` |
-| `collab-terminal/` | Shared terminal via WebSocket | `vmux run --preview python collab-terminal/server.py` |
-
-## CLI Flags Reference
+### Hello World
 
 ```bash
+vmux run python hello.py
+```
+
+5-second test. Prints working directory, lists files, counts to 5.
+
+### Long-running Jobs
+
+```bash
+vmux run -d python epoch_counter.py
+vmux logs -f <job_id>
+```
+
+The `-d` flag detaches immediately, returning a job ID. Use `vmux ps` to list running jobs, `vmux attach <id>` to get a terminal.
+
+### Web Servers
+
+```bash
+vmux run -p 8000 python burrow.py
+```
+
+Starts a FastAPI server. You get a preview URL like `https://<job_id>.purr.ge` that proxies to port 8000.
+
+The burrow demo shows:
+- WebSocket broadcasting
+- Server-Sent Events
+- Real-time metrics dashboard
+- Graceful shutdown
+
+### Collaborative Terminal
+
+```bash
+vmux run -p 8000 python collab-terminal/server.py
+```
+
+Share a terminal session. Multiple users connect to the same bash PTY via WebSocket.
+
+### Network Monitoring
+
+```bash
+vmux run python netprobe.py
+```
+
+Measures latency, jitter, and packet loss to Cloudflare, Google, AWS endpoints. Runs periodic speed tests.
+
+### ML Training
+
+```bash
+vmux run python train_arithmetic.py
+```
+
+Teaches a 1B LLM to add numbers via RL. Watch reward climb from ~0.66 to 1.0.
+
+```bash
+vmux run -d python train_llama.py
+```
+
+Fine-tunes Llama-3.1-8B on instruction-following. Longer job, run detached.
+
+Both require a Tinker API key:
+```bash
+vmux secret set TINKER_API_KEY
+```
+
+## CLI Reference
+
+```
 vmux run [OPTIONS] COMMAND
 
-Options:
-  -d, --detach     Run in background, return job ID
-  -p, --port INT   Expose port for preview URL (repeatable)
-  --preview        Shorthand for -p 8000
-  -e, --env K=V    Set environment variable
+  -d, --detach      Run in background
+  -p, --port INT    Expose port for preview URL
+  -e, --env K=V     Set environment variable
+
+vmux ps             List running jobs
+vmux logs -f <id>   Follow logs
+vmux attach <id>    Get a terminal
+vmux stop <id>      Kill a job
 ```
 
-## Common Patterns
+## More
 
-```bash
-# Run and watch output
-vmux run python hello.py
-
-# Run in background
-vmux run -d python long_job.py
-
-# Web server with preview URL
-vmux run -p 8000 python server.py
-
-# Multiple ports
-vmux run -p 3000 -p 8000 npm run dev
-
-# With environment variables
-vmux run -e API_KEY=xxx python script.py
-
-# Check running jobs
-vmux ps
-
-# Follow logs
-vmux logs -f <job_id>
-
-# Attach to tmux session
-vmux attach <job_id>
-
-# Stop a job
-vmux stop <job_id>
-```
-
-## What Each Example Demonstrates
-
-### `hello.py`
-Basic vmux test - prints info and counts to 5. Good for verifying setup.
-
-### `ticker.py` / `epoch_counter.py`
-Long-running scripts for testing `-d` (detach) mode and log streaming.
-
-### `holiday.py`
-Fun ASCII art animation. Shows terminal output rendering in the cloud.
-
-### `netprobe.py`
-Async network monitoring with aiohttp. Measures latency to Cloudflare, Google, AWS endpoints. Runs periodic speed tests.
-
-### `train_arithmetic.py`
-Teaches a 1B-parameter LLM to add numbers using RL. Watch reward go from ~0.66 to 1.0 as it learns.
-
-### `train_llama.py`
-Fine-tunes Llama-3.1-8B on instruction-following. Demonstrates longer training jobs with `-d`.
-
-### `burrow.py`
-Production-style FastAPI server with:
-- WebSocket connection pooling
-- Server-Sent Events streaming
-- Real-time metrics dashboard
-- Graceful shutdown handling
-
-Access via your preview URL: `https://<job_id>.purr.ge`
-
-### `collab-terminal/`
-Collaborative terminal - multiple users share the same bash session via WebSocket. See [collab-terminal/README.md](collab-terminal/README.md) for architecture details.
-
-## License
-
-MIT
+- [vmux docs](https://vmux.sdan.io)
+- [CLI source](https://github.com/sdan/vmux) (coming soon)
