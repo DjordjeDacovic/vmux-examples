@@ -1,6 +1,6 @@
 # vmux examples
 
-Example scripts for [vmux](https://vmux.sdan.io). Run anything in the cloud.
+Example scripts for [vmux](https://vmux.sdan.io). Run Python in the cloud.
 
 ## Setup
 
@@ -25,12 +25,13 @@ A 5-second sanity check. Prints the working directory, lists files, counts to 5.
 vmux run -d python epoch_counter.py
 ```
 
-The `-d` flag detaches immediately. Close your laptop. The job keeps running.
+The `-d` flag works like Docker - detach from the container and let the job run. Close your laptop.
 
 ```bash
-vmux ps
-vmux logs -f <job_id>
-vmux attach <job_id>
+vmux ps                    # like docker ps
+vmux logs -f <job_id>      # like docker logs -f
+vmux attach <job_id>       # like docker attach, but it's tmux
+vmux stop <job_id>         # like docker stop
 ```
 
 ### Web Servers
@@ -85,14 +86,14 @@ vmux secret set TINKER_API_KEY
 ## CLI Reference
 
 ```
-vmux run python train.py          # Run in the cloud
-vmux run -d python train.py       # Detached mode
-vmux run -p 8000 python server.py # Expose port, get preview URL
+vmux run python train.py          # like uv run, but in the cloud
+vmux run -d python train.py       # detached, like docker -d
+vmux run -p 8000 python server.py # expose port, get preview URL
 
-vmux ps                           # List running jobs
-vmux logs -f <id>                 # Follow logs
-vmux attach <id>                  # Back in your tmux session
-vmux stop <id>                    # Stop a job
+vmux ps                           # list running containers
+vmux logs -f <id>                 # follow logs
+vmux attach <id>                  # back in your tmux session
+vmux stop <id>                    # stop container
 ```
 
 ## More
