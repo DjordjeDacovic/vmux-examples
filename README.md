@@ -1,5 +1,7 @@
 # vmux examples
 
+<img src="og.png" width="100%" />
+
 Example scripts for [vmux](https://vmux.sdan.io). Run Python in the cloud.
 
 ## Setup
